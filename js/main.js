@@ -10,7 +10,6 @@
         }
     });
 
-
     // Smooth scrolling on the navbar links
     $(".navbar-nav a").on('click', function (event) {
         if (this.hash !== "") {
@@ -39,25 +38,6 @@
             loop: true
         });
     }
-
-
-    // Modal Video
-    $(document).ready(function () {
-        var $videoSrc;
-        $('.btn-play').click(function () {
-            $videoSrc = $(this).data("src");
-        });
-        console.log($videoSrc);
-
-        $('#videoModal').on('shown.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-        })
-
-        $('#videoModal').on('hide.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc);
-        })
-    });
-
 
     // Scroll to Bottom
     $(window).scroll(function () {
@@ -102,16 +82,37 @@
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
     });
-
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        dots: true,
-        loop: true,
-        items: 1
-    });
-    
 })(jQuery);
+
+// Create a lightbox
+(function() {
+    var $lightbox = $("<div class='lightbox'></div>");
+    var $img = $("<img>");
+    var $caption = $("<p class='caption'></p>");
+  
+    // Add image and caption to lightbox
+    $lightbox
+      .append($img)
+  
+    // Add lighbox to document
+    $('body').append($lightbox);
+  
+    $('.lightbox-gallery img').click(function(e) {
+      e.preventDefault();
+  
+      // Get image link and description
+      var src = $(this).attr("data-image-hd");
+  
+      // Add data to lighbox
+      $img.attr('src', src);
+  
+      // Show lightbox
+      $lightbox.fadeIn('fast');
+  
+      $lightbox.click(function() {
+        $lightbox.fadeOut('fast');
+      });
+    });
+  
+  }());
 
